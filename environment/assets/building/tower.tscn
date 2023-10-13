@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://f8ivhp5g2nrv"]
+
+[ext_resource type="PackedScene" uid="uid://dm35fegombo70" path="res://environment/assets/building/building.tscn" id="1_naf33"]
+[ext_resource type="Script" path="res://environment/assets/building/tower.gd" id="2_qcb4f"]
+[ext_resource type="Texture2D" uid="uid://c8jigk8byeox3" path="res://environment/assets/building/windowless_tower.png" id="3_73ept"]
+[ext_resource type="Script" path="res://effects/player_visibility_node.gd" id="3_uqgku"]
+[ext_resource type="Texture2D" uid="uid://keuwretfb8nb" path="res://environment/assets/building/tower_window.png" id="5_pfv0p"]
+
+[node name="Building" instance=ExtResource("1_naf33")]
+script = ExtResource("2_qcb4f")
+window = true
+has_door = true
+shape = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
+collision_shape = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
+
+[node name="Shadow" parent="." index="0"]
+polygon = PackedVector2Array(19, 4, 19, -34, -20, -34, -20, 4)
+
+[node name="Polygon2D" parent="." index="2"]
+polygon = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
+
+[node name="CollisionPolygon2D" parent="." index="3"]
+polygon = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
+
+[node name="Tower2" type="Sprite2D" parent="." index="4"]
+position = Vector2(0, -48)
+texture = ExtResource("3_73ept")
+
+[node name="PlayerVisibilityNode" type="Area2D" parent="Tower2" index="0"]
+position = Vector2(0, 53)
+script = ExtResource("3_uqgku")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tower2/PlayerVisibilityNode" index="0"]
+visible = false
+polygon = PackedVector2Array(-15, -5, 14, -5, 17, -45, 17, -66, -1, -83, -17, -66, -18, -45)
+
+[node name="TowerWindow" type="Sprite2D" parent="." index="5"]
+position = Vector2(0, -48)
+texture = ExtResource("5_pfv0p")

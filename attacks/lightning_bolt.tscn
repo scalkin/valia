@@ -1,0 +1,198 @@
+[gd_scene load_steps=18 format=3 uid="uid://bva5ybco3nlp6"]
+
+[ext_resource type="Script" path="res://attacks/lightning_bolt.gd" id="1_anral"]
+[ext_resource type="Texture2D" uid="uid://g0tdg3wmcct7" path="res://effects/lightning_particle.png" id="2_ffrwc"]
+[ext_resource type="Shader" path="res://attacks/lightning_bolt.gdshader" id="2_il03o"]
+[ext_resource type="Texture2D" uid="uid://b21k5vwplfc08" path="res://effects/gradient.png" id="3_dueol"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a5ule"]
+
+[sub_resource type="Curve" id="Curve_5lfi6"]
+max_value = 2.0
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.743902, 1.53025), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_723hu"]
+curve = SubResource("Curve_5lfi6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_isf30"]
+emission_shape = 1
+emission_sphere_radius = 5.2
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -880.0
+scale_curve = SubResource("CurveTexture_723hu")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k0sdf"]
+radius = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygetk"]
+shader = ExtResource("2_il03o")
+shader_parameter/cutoff = 0.0
+
+[sub_resource type="Curve" id="Curve_416l1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.156757, 1), 0.0, 0.0, 0, 0, Vector2(0.235135, 0.395018), 0.0, 0.0, 0, 0, Vector2(0.375676, 0.807829), 0.0, 0.0, 0, 0, Vector2(0.491892, 0.302491), 0.0, 0.0, 0, 0, Vector2(0.605405, 0.793594), 0.0, 0.0, 0, 0, Vector2(0.740541, 0.266904), 0.0, 0.0, 0, 0, Vector2(0.905405, 0.501779), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 9
+
+[sub_resource type="Animation" id="Animation_m8kx7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_dyysb"]
+resource_name = "lightning"
+length = 0.2
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 100.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}, {
+"args": [],
+"method": &"add_point_animation"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6rj0a"]
+_data = {
+"RESET": SubResource("Animation_m8kx7"),
+"lightning": SubResource("Animation_dyysb")
+}
+
+[sub_resource type="Animation" id="Animation_eph3i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Line2D:material:shader_parameter/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_de3vw"]
+resource_name = "shrink"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Line2D:material:shader_parameter/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(-0.5, -0.5, -0.5),
+"update": 0,
+"values": [0.6, 0.4, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sg1ij"]
+_data = {
+"RESET": SubResource("Animation_eph3i"),
+"shrink": SubResource("Animation_de3vw")
+}
+
+[node name="Lightning Bolt" type="Area2D"]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_anral")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(50, -4)
+shape = SubResource("CircleShape2D_a5ule")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="CollisionShape2D"]
+process_material = SubResource("ParticleProcessMaterial_isf30")
+texture = ExtResource("2_ffrwc")
+lifetime = 0.3
+
+[node name="Area2D" type="Area2D" parent="CollisionShape2D"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/Area2D"]
+shape = SubResource("CircleShape2D_k0sdf")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+autostart = true
+
+[node name="Line2D" type="Line2D" parent="."]
+material = SubResource("ShaderMaterial_ygetk")
+width_curve = SubResource("Curve_416l1")
+texture = ExtResource("3_dueol")
+texture_mode = 2
+
+[node name="Draw Lightning" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6rj0a")
+}
+
+[node name="Shrink" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sg1ij")
+}
+
+[connection signal="body_entered" from="CollisionShape2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="Draw Lightning" to="." method="_on_draw_lightning_animation_finished"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccm88wh173xdv"]
+
+[ext_resource type="Script" path="res://music/music.gd" id="2_s0w43"]
+
+[node name="Music" type="Node"]
+process_mode = 3
+script = ExtResource("2_s0w43")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

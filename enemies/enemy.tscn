@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=3 uid="uid://24onsynh16ok"]
+
+[ext_resource type="Script" path="res://enemies/enemy.gd" id="1_cc7is"]
+[ext_resource type="Material" uid="uid://ba88esyvx7vlm" path="res://enemies/enemy_material.tres" id="2_t2cfs"]
+[ext_resource type="PackedScene" uid="uid://bsgrxe74ukwf0" path="res://enemies/hitbox.tscn" id="3_e3g75"]
+
+[sub_resource type="Animation" id="Animation_fcy0a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_blaew"]
+resource_name = "hit"
+length = 0.2
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.125),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"freeze_frame"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.261799, 0.261799, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_41cia"]
+_data = {
+"RESET": SubResource("Animation_fcy0a"),
+"hit": SubResource("Animation_blaew")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ous7j"]
+radius = 3.0
+
+[node name="enemy" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_cc7is")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+material = ExtResource("2_t2cfs")
+position = Vector2(-6, -15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Hitbox" parent="." instance=ExtResource("3_e3g75")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+
+[node name="Sight" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sight"]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 3.0
+debug_enabled = true
+
+[node name="NavTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="Flash Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Hit" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_41cia")
+}
+
+[node name="Detect Nearby Enemies" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detect Nearby Enemies"]
+shape = SubResource("CircleShape2D_ous7j")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="Sight" to="." method="_on_sight_area_entered"]
+[connection signal="area_exited" from="Sight" to="." method="_on_sight_area_exited"]
+[connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]

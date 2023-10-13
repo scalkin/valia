@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnrfxa4p2snoc"]
+
+[ext_resource type="PackedScene" uid="uid://24onsynh16ok" path="res://enemies/enemy.tscn" id="1_mpqp7"]
+[ext_resource type="Texture2D" uid="uid://cnw3p1fqbyaff" path="res://enemies/dummy.png" id="2_04di4"]
+[ext_resource type="Shader" path="res://enemies/flash.gdshader" id="2_8s16g"]
+[ext_resource type="Script" path="res://enemies/dummy.gd" id="2_hm2k3"]
+[ext_resource type="PackedScene" uid="uid://b5tqfixcajuia" path="res://effects/shadows/shadow.tscn" id="3_6mvi0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bstta"]
+resource_local_to_scene = true
+shader = ExtResource("2_8s16g")
+shader_parameter/flash = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fsw56"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wwm85"]
+radius = 3.0
+height = 14.0
+
+[node name="dummy" instance=ExtResource("1_mpqp7")]
+script = ExtResource("2_hm2k3")
+
+[node name="shadow" parent="." index="0" instance=ExtResource("3_6mvi0")]
+
+[node name="Sprite2D" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_bstta")
+position = Vector2(-8, -15)
+texture = ExtResource("2_04di4")
+centered = false
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -1)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_fsw56")
+
+[node name="CollisionShape2D" parent="Hitbox" index="1"]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_wwm85")

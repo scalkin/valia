@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm35fegombo70"]
+
+[ext_resource type="PackedScene" uid="uid://dqqpc423wtmg0" path="res://environment/assets/building/door.tscn" id="1_634up"]
+[ext_resource type="Script" path="res://environment/assets/building/building.gd" id="1_bxn86"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0h6o3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p2bi4"]
+
+[node name="Building" type="StaticBody2D"]
+script = ExtResource("1_bxn86")
+has_door = null
+
+[node name="Shadow" type="Polygon2D" parent="."]
+z_index = -2
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_0h6o3")
+color = Color(0.054902, 0.027451, 0.105882, 0.392157)
+
+[node name="Door" parent="." instance=ExtResource("1_634up")]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 60)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+modulate = Color(0.133333, 1, 1, 0.427451)
+z_index = 1
+material = SubResource("CanvasItemMaterial_p2bi4")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

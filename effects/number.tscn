@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdf6xejaje7y"]
+
+[ext_resource type="Script" path="res://effects/number.gd" id="1_qnsvv"]
+[ext_resource type="Theme" uid="uid://dqaqitfpggg2l" path="res://ui/assets/theme.tres" id="1_wpsck"]
+
+[node name="Number" type="Label"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wpsck")
+theme_override_colors/font_color = Color(0.917647, 0.196078, 0.235294, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+script = ExtResource("1_qnsvv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

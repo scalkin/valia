@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb48tjvbeuld1"]
+
+[ext_resource type="Script" path="res://items/swish.gd" id="1_qpls0"]
+
+[sub_resource type="Curve" id="Curve_22ulf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.386525, 1), 0.0, 0.0, 0, 0, Vector2(0.754054, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Swish" type="Line2D"]
+z_index = 1
+width_curve = SubResource("Curve_22ulf")
+joint_mode = 1
+round_precision = 5
+script = ExtResource("1_qpls0")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

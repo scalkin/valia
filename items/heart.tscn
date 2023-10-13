@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://603w5syoa6va"]
+
+[ext_resource type="Texture2D" uid="uid://4bxvi45pafhh" path="res://items/assets/heart.png" id="1_dra8n"]
+[ext_resource type="Script" path="res://items/heart.gd" id="1_nht7q"]
+[ext_resource type="PackedScene" uid="uid://b5tqfixcajuia" path="res://effects/shadows/shadow.tscn" id="2_orhvk"]
+[ext_resource type="Texture2D" uid="uid://dorjtis7i42gp" path="res://effects/shadows/shadow_2.png" id="3_4hjv1"]
+[ext_resource type="Shader" path="res://items/heart.gdshader" id="4_g57p4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_edsh8"]
+shader = ExtResource("4_g57p4")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e8feh"]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5d1e8"]
+radius = 23.0217
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_brply"]
+radius = 2.0
+
+[node name="Heart" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_nht7q")
+
+[node name="shadow" parent="." instance=ExtResource("2_orhvk")]
+position = Vector2(-4, -2)
+texture = ExtResource("3_4hjv1")
+
+[node name="Heart" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_edsh8")
+position = Vector2(0, -6)
+texture = ExtResource("1_dra8n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_e8feh")
+
+[node name="Player Nearby?" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Nearby?"]
+shape = SubResource("CircleShape2D_5d1e8")
+
+[node name="Touching Player?" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Touching Player?"]
+visible = false
+shape = SubResource("CircleShape2D_brply")
+
+[connection signal="body_entered" from="Player Nearby?" to="." method="_on_player_nearby_body_entered"]
+[connection signal="body_exited" from="Player Nearby?" to="." method="_on_player_nearby_body_exited"]
+[connection signal="body_entered" from="Touching Player?" to="." method="_on_touching_player_body_entered"]

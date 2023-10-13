@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgei4m54cqx3a"]
+
+[ext_resource type="Script" path="res://global.gd" id="1_b88rw"]
+
+[node name="Global" type="Node"]
+process_mode = 3
+script = ExtResource("1_b88rw")
+
+[node name="Freeze" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="timeout" from="Freeze" to="." method="_on_freeze_timeout"]

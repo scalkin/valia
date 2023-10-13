@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://h7ce5n5s4ai8"]
+
+[ext_resource type="Texture2D" uid="uid://bitnrbqjchb8t" path="res://enemies/skeleton.png" id="1_2howj"]
+[ext_resource type="Script" path="res://enemies/skeleton_die.gd" id="2_57e8u"]
+[ext_resource type="PackedScene" uid="uid://b5tqfixcajuia" path="res://effects/shadows/shadow.tscn" id="3_8uexy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8b7dw"]
+atlas = ExtResource("1_2howj")
+region = Rect2(156, 0, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl7wq"]
+atlas = ExtResource("1_2howj")
+region = Rect2(168, 0, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nf6wv"]
+atlas = ExtResource("1_2howj")
+region = Rect2(180, 0, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bbta"]
+atlas = ExtResource("1_2howj")
+region = Rect2(192, 0, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvlqp"]
+atlas = ExtResource("1_2howj")
+region = Rect2(204, 0, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvpei"]
+atlas = ExtResource("1_2howj")
+region = Rect2(216, 0, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75fm7"]
+atlas = ExtResource("1_2howj")
+region = Rect2(228, 0, 12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7foux"]
+atlas = ExtResource("1_2howj")
+region = Rect2(240, 0, 12, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_por3f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8b7dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl7wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nf6wv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bbta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvlqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvpei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75fm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7foux")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="skeleton_die" type="AnimatedSprite2D"]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_por3f")
+frame = 7
+frame_progress = 1.0
+script = ExtResource("2_57e8u")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="shadow" parent="." instance=ExtResource("3_8uexy")]
+show_behind_parent = true
+position = Vector2(-3, 5)
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

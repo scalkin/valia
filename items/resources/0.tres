@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://ku2u61yp1x3k"]
+
+[ext_resource type="Script" path="res://editor/item.gd" id="1_kco3n"]
+[ext_resource type="Texture2D" uid="uid://4c707x5d2c1i" path="res://ui/assets/basic_sword.png" id="1_p12ap"]
+[ext_resource type="Texture2D" uid="uid://c8t6k5gs5p34e" path="res://items/assets/sword_1_icon.png" id="1_vhpwp"]
+[ext_resource type="Texture2D" uid="uid://dkspdj8oolcv6" path="res://items/assets/sword_1.png" id="2_jjxuj"]
+[ext_resource type="Texture2D" uid="uid://bb682ai6kr0kj" path="res://ui/assets/sword_spin.png" id="4_nayfr"]
+[ext_resource type="Texture2D" uid="uid://dmy4i62fy00kt" path="res://ui/assets/sword_dash.png" id="5_gfwwn"]
+
+[resource]
+script = ExtResource("1_kco3n")
+id = 0
+name = "Sword"
+type = 0
+texture = ExtResource("2_jjxuj")
+icon = ExtResource("1_vhpwp")
+offset = Vector2(-12, -3)
+blade_base = 14
+blade_center = 6
+blade_tip = -2
+basic_damage = 3
+secondary_damage = 5
+tertiary_damage = 5
+basic_cooldown = 0.25
+secondary_cooldown = 3.0
+tertiary_cooldown = 2.0
+dash_speed = 4.0
+super_dash_speed = 6.0
+swish_thickness = 10
+basic_animation = "sword"
+directional_basic = true
+automatic_basic = false
+secondary_animation = "sword_spin"
+directional_secondary = true
+dash_on_secondary = true
+tertiary_animation = "dash"
+directional_tertiary = false
+basic_icon = ExtResource("1_p12ap")
+secondary_icon = ExtResource("4_nayfr")
+tertiary_icon = ExtResource("5_gfwwn")
+hand_texture = 0
+equip_function = Callable()

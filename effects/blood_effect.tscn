@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dckyqvvy4nuu4"]
+
+[ext_resource type="Texture2D" uid="uid://bvk8mkutfi7i4" path="res://effects/blood.png" id="1_x8q3u"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7n4pw"]
+particle_flag_disable_z = true
+spread = 29.26
+gravity = Vector3(0, 90, 0)
+initial_velocity_min = 52.32
+initial_velocity_max = 85.11
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 100.0
+scale_max = 2.0
+hue_variation_min = 0.95
+hue_variation_max = 1.0
+
+[node name="Blood Effect" type="GPUParticles2D"]
+process_material = SubResource("ParticleProcessMaterial_7n4pw")
+texture = ExtResource("1_x8q3u")
+explosiveness = 0.83
+randomness = 1.0
+local_coords = true

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ba88esyvx7vlm"]
+
+[ext_resource type="Shader" path="res://enemies/flash.gdshader" id="1_i3dgb"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_i3dgb")
+shader_parameter/flash = false

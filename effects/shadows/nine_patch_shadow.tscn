@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://baorugo20kdot"]
+
+[ext_resource type="Texture2D" uid="uid://df37as4tdy8oj" path="res://effects/shadows/ninepatch.png" id="1_47ufv"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_iiut8"]
+
+[node name="Nine Patch Shadow" type="NinePatchRect"]
+modulate = Color(1, 1, 1, 0.392157)
+z_index = -1
+material = SubResource("CanvasItemMaterial_iiut8")
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 13.0
+offset_bottom = 10.0
+texture = ExtResource("1_47ufv")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dad2fmfvq6fds"]
+
+[ext_resource type="Script" path="res://editor/item.gd" id="1_5y1kb"]
+
+[resource]
+script = ExtResource("1_5y1kb")
+id = 0
+name = ""
+basic_damage = 0
+secondary_damage = 0
+tertiary_damage = 0
+basic_cooldown = 0.0
+secondary_cooldown = 0.0
+tertiary_cooldown = 0.0

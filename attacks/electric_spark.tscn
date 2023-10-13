@@ -1,0 +1,136 @@
+[gd_scene load_steps=16 format=3 uid="uid://unrur1to524e"]
+
+[ext_resource type="Script" path="res://attacks/spark.gd" id="1_vfihr"]
+[ext_resource type="Texture2D" uid="uid://bap2lx1plv4ui" path="res://effects/lightning_explosion.png" id="3_gdqb2"]
+
+[sub_resource type="Curve" id="Curve_m1dwq"]
+_data = [Vector2(0.835366, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.04044, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5waqx"]
+curve = SubResource("Curve_m1dwq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m7y3c"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_5waqx")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8ca2"]
+atlas = ExtResource("3_gdqb2")
+region = Rect2(0, 0, 9, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg64q"]
+atlas = ExtResource("3_gdqb2")
+region = Rect2(9, 0, 9, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpwe1"]
+atlas = ExtResource("3_gdqb2")
+region = Rect2(18, 0, 9, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24rap"]
+atlas = ExtResource("3_gdqb2")
+region = Rect2(27, 0, 9, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sq7b"]
+atlas = ExtResource("3_gdqb2")
+region = Rect2(27, 0, 3, 2)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h8u3q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8ca2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg64q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpwe1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24rap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0sq7b")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e22yi"]
+height = 44.0
+
+[sub_resource type="Curve" id="Curve_c6v0o"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.667568, 1), 0.0, 0.0, 0, 0, Vector2(0.835135, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_ckvms"]
+colors = PackedColorArray(0.976471, 0.901961, 0.811765, 1, 1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5x4op"]
+radius = 2.0
+
+[node name="spark" type="Area2D"]
+z_index = 2
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_vfihr")
+empty_frame = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_m7y3c")
+lifetime = 0.25
+explosiveness = 0.08
+randomness = 1.0
+visibility_rect = Rect2(-200, -200, 400, 400)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_h8u3q")
+frame = 4
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12, 0)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_e22yi")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 1.0
+width_curve = SubResource("Curve_c6v0o")
+default_color = Color(0.976471, 0.901961, 0.811765, 1)
+gradient = SubResource("Gradient_ckvms")
+texture_mode = 2
+
+[node name="Line2D2" type="Line2D" parent="."]
+width = 1.0
+width_curve = SubResource("Curve_c6v0o")
+default_color = Color(0.976471, 0.901961, 0.811765, 1)
+gradient = SubResource("Gradient_ckvms")
+texture_mode = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_5x4op")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5tqfixcajuia"]
+
+[ext_resource type="Texture2D" uid="uid://bmklopsdummab" path="res://effects/shadows/shadow_1.png" id="1_t4taj"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a0fuf"]
+
+[node name="shadow" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.392157)
+material = SubResource("CanvasItemMaterial_a0fuf")
+position = Vector2(-3, -2)
+texture = ExtResource("1_t4taj")
+centered = false
