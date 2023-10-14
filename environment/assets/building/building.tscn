@@ -12,7 +12,6 @@ script = ExtResource("1_bxn86")
 has_door = null
 
 [node name="Shadow" type="Polygon2D" parent="."]
-z_index = -2
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_0h6o3")
 color = Color(0.054902, 0.027451, 0.105882, 0.392157)

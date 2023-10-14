@@ -1,18 +1,18 @@
-[gd_scene load_steps=49 format=3 uid="uid://jujg78m2plwq"]
+[gd_scene load_steps=50 format=3 uid="uid://jujg78m2plwq"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_cshaw"]
 [ext_resource type="Texture2D" uid="uid://06gnqvtg570g" path="res://characters/character_1.png" id="2_du1n0"]
 [ext_resource type="Texture2D" uid="uid://jcgxjida4pxe" path="res://characters/character_1_head.png" id="3_85swf"]
 [ext_resource type="Texture2D" uid="uid://boqyxlsfxhk52" path="res://characters/hand.png" id="3_p262c"]
 [ext_resource type="Script" path="res://player/hand.gd" id="4_fsken"]
+[ext_resource type="Texture2D" uid="uid://dejnpuxg8h3ib" path="res://items/assets/wand_3.png" id="7_21n3r"]
 [ext_resource type="Texture2D" uid="uid://cy01b00231nqo" path="res://ui/pointer.png" id="7_q2flt"]
-[ext_resource type="Texture2D" uid="uid://c48l6iryvmjve" path="res://items/assets/wand_2.png" id="7_xeeos"]
 [ext_resource type="PackedScene" uid="uid://b5tqfixcajuia" path="res://effects/shadows/shadow.tscn" id="8_c1ku2"]
 [ext_resource type="Script" path="res://player/dash_hurtbox.gd" id="8_u3fdo"]
 [ext_resource type="Texture2D" uid="uid://iothlxthsmcl" path="res://effects/dash_lines.png" id="9_r6taq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t1e7l"]
-radius = 2.0
+radius = 1.0
 height = 6.0
 
 [sub_resource type="Gradient" id="Gradient_sba8g"]
@@ -523,6 +523,53 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_s5d61"]
+resource_name = "wand_magic_ball"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shoulder/Hand:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_magic_ball"
+}, {
+"args": [],
+"method": &"secondary_finsihed"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wand_explosion"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_i5cc1"]
 resource_name = "wand_spark"
 length = 0.2
@@ -594,6 +641,7 @@ _data = {
 "wand_electric_spark": SubResource("Animation_1k1jy"),
 "wand_fireball": SubResource("Animation_rr7e3"),
 "wand_lightning_bolt": SubResource("Animation_a27qg"),
+"wand_magic_ball": SubResource("Animation_s5d61"),
 "wand_spark": SubResource("Animation_i5cc1")
 }
 
@@ -895,8 +943,7 @@ hframes = 20
 frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -2)
+position = Vector2(0, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_t1e7l")
 
@@ -911,12 +958,12 @@ script = ExtResource("4_fsken")
 
 [node name="Sword" type="Sprite2D" parent="Shoulder/Hand"]
 position = Vector2(-10, -1)
-texture = ExtResource("7_xeeos")
+texture = ExtResource("7_21n3r")
 centered = false
 flip_h = true
 
 [node name="Base" type="Node2D" parent="Shoulder/Hand/Sword"]
-position = Vector2(15, 5)
+position = Vector2(15, 2)
 
 [node name="Center" type="Node2D" parent="Shoulder/Hand/Sword"]
 position = Vector2(5, 5)

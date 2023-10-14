@@ -6,7 +6,7 @@ class_name Building
 @export var shape:PackedVector2Array
 @export var collision_shape:PackedVector2Array
 @export var reload = false:
-	set(value):
+	set(_value):
 		if Engine.is_editor_hint():
 			reload = false
 			_ready()
@@ -68,7 +68,7 @@ func _ready():
 		index += 1
 	shadow.polygon = poly
 
-func _process(delta):
+func _process(_delta):
 	if has_door:
 		$Door.modulate.a = 255
 	else:

@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://dlba68rltr4uw"]
+
+[ext_resource type="Texture2D" uid="uid://4c707x5d2c1i" path="res://ui/assets/basic_sword.png" id="1_5c1xt"]
+[ext_resource type="Script" path="res://editor/item.gd" id="1_44rqu"]
+[ext_resource type="Texture2D" uid="uid://ckaxti21kmqrm" path="res://items/assets/sword_2_icon.png" id="1_j187t"]
+[ext_resource type="Texture2D" uid="uid://cd7cdjvxs4q5x" path="res://items/assets/sword_2.png" id="3_578ap"]
+[ext_resource type="Texture2D" uid="uid://bb682ai6kr0kj" path="res://ui/assets/sword_spin.png" id="4_25m4g"]
+[ext_resource type="Texture2D" uid="uid://dmy4i62fy00kt" path="res://ui/assets/sword_dash.png" id="5_iq764"]
+
+[resource]
+script = ExtResource("1_44rqu")
+id = 2
+name = "Sword of Heroic Might"
+type = 0
+texture = ExtResource("3_578ap")
+icon = ExtResource("1_j187t")
+offset = Vector2(-15, -3)
+blade_base = 16
+blade_center = 7
+blade_tip = -2
+basic_damage = 7
+secondary_damage = 7
+tertiary_damage = 10
+basic_cooldown = 0.3
+secondary_cooldown = 3.5
+tertiary_cooldown = 2.5
+dash_speed = 3.0
+super_dash_speed = 6.0
+swish_thickness = 12
+basic_animation = "sword"
+directional_basic = true
+automatic_basic = false
+secondary_animation = "sword_spin"
+directional_secondary = true
+dash_on_secondary = true
+tertiary_animation = "dash"
+directional_tertiary = false
+basic_icon = ExtResource("1_5c1xt")
+secondary_icon = ExtResource("4_25m4g")
+tertiary_icon = ExtResource("5_iq764")
+hand_texture = 0
+equip_function = Callable()

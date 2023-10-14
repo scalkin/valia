@@ -30,7 +30,7 @@ func die():
 
 func _process(delta):
 	var target = to_local(next_path_position)
-	print(nav_agent.target_position)
+	#print(nav_agent.target_position)
 	$Icon.global_position = next_path_position
 	velocity = velocity.move_toward(target.normalized()*speed, 500*delta)
 	move_and_slide()

@@ -36,6 +36,7 @@ var swish_thickness = 10
 var sword_hurtbox = preload("res://items/sword_hurtbox.tscn")
 var sword_swish = preload("res://items/swish.tscn")
 var fireball = preload("res://attacks/fireball.tscn")
+var magic_ball = preload("res://attacks/magic_ball.tscn")
 var lightning_bolt = preload("res://attacks/lightning_bolt.tscn")
 var wand_lightning_explosion = preload("res://effects/lightning_explosion.tscn")
 var spark = preload("res://attacks/spark.tscn")
@@ -455,6 +456,16 @@ func spawn_fireball():
 		sin(shoulder.rotation),
 	)
 	add_sibling(fireball_instance)
+	
+func spawn_magic_ball():
+	var magic_ball_instance = magic_ball.instantiate()
+	magic_ball_instance.global_position = blade_tip.global_position
+	magic_ball_instance.damage = Global.items[Global.equipped_item].secondary_damage
+	magic_ball_instance.velocity = Vector2(
+		cos(shoulder.rotation),
+		sin(shoulder.rotation),
+	)*1.5
+	add_sibling(magic_ball_instance)
 
 func spawn_lightning_bolt():
 	var lightning_explosion_instance = wand_lightning_explosion.instantiate()

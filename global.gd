@@ -19,19 +19,20 @@ var player_health = 15:
 var player_max_health = 15
 var inventory = [
 	-1, -1, -1, -1,
-	-1, -1, -1, -1,
+	-1, -1, -1, 6,
 	-1, -1, 5, 4,
 	0, 1, 2, 3,
 	-1, -1, -1]
 
 var equipped_item = -1
 var items = [
-	load("res://items/resources/0.tres"),
-	load("res://items/resources/1.tres"),
-	load("res://items/resources/2.tres"),
-	load("res://items/resources/3.tres"),
-	load("res://items/resources/4.tres"),
-	load("res://items/resources/5.tres"),
+	load("res://items/resources/sword.tres"),
+	load("res://items/resources/battleaxe.tres"),
+	load("res://items/resources/legendary_sword.tres"),
+	load("res://items/resources/dual_swords.tres"),
+	load("res://items/resources/wand_1.tres"),
+	load("res://items/resources/wand_2.tres"),
+	load("res://items/resources/wand_3.tres"),
 ]
 
 var dash_unlocked = true

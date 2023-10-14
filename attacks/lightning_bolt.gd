@@ -26,5 +26,5 @@ func _on_draw_lightning_animation_finished(_anim_name):
 	$CollisionShape2D/GPUParticles2D2.emitting = false
 
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(_body):
 	$CollisionShape2D.set_deferred("disabled", true)

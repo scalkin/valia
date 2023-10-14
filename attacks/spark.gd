@@ -69,5 +69,5 @@ func _on_body_entered(_body):
 	_on_area_entered(self)
 
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(_body):
 	_on_area_entered(self)

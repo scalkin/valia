@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://din4kytql28w6"]
+
+[ext_resource type="Texture2D" uid="uid://dejnpuxg8h3ib" path="res://items/assets/wand_3.png" id="1_0lcsg"]
+[ext_resource type="Script" path="res://editor/item.gd" id="2_utdxh"]
+
+[resource]
+script = ExtResource("2_utdxh")
+id = 6
+name = "Wand 3"
+type = 0
+texture = ExtResource("1_0lcsg")
+icon = ExtResource("1_0lcsg")
+offset = Vector2(-11, 0)
+blade_base = 15
+blade_center = 5
+blade_tip = 0
+basic_damage = 1
+secondary_damage = 1
+tertiary_damage = 1
+basic_cooldown = 0.5
+secondary_cooldown = 2.0
+tertiary_cooldown = 2.0
+dash_speed = 4.0
+super_dash_speed = 6.0
+swish_thickness = 0
+basic_animation = "wand_spark"
+directional_basic = false
+automatic_basic = true
+secondary_animation = "wand_magic_ball"
+directional_secondary = false
+dash_on_secondary = false
+tertiary_animation = "dash"
+directional_tertiary = false
+basic_icon = ExtResource("1_0lcsg")
+secondary_icon = ExtResource("1_0lcsg")
+tertiary_icon = ExtResource("1_0lcsg")
+hand_texture = 0
+equip_function = Callable()

@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://b000rgc874ke6"]
+
+[ext_resource type="PackedScene" uid="uid://dm35fegombo70" path="res://environment/assets/building/building.tscn" id="1_tnnqm"]
+[ext_resource type="Texture2D" uid="uid://dt5egbkf4j3qw" path="res://environment/assets/building/house_2.png" id="2_qy1gs"]
+[ext_resource type="Script" path="res://effects/player_visibility_node.gd" id="3_cnhsq"]
+[ext_resource type="Texture2D" uid="uid://c6daprjqht5w2" path="res://effects/cloud.png" id="4_ud0sk"]
+
+[sub_resource type="Gradient" id="Gradient_am5om"]
+offsets = PackedFloat32Array(0, 0.45082, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k373t"]
+gradient = SubResource("Gradient_am5om")
+
+[sub_resource type="Curve" id="Curve_nd2wc"]
+max_value = 2.0
+_data = [Vector2(0, 0.747331), 0.0, 0.0, 0, 0, Vector2(0.650602, 1.14591), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qelpc"]
+curve = SubResource("Curve_nd2wc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ut1yg"]
+particle_flag_disable_z = true
+direction = Vector3(-1, -1, 0)
+spread = 15.0
+flatness = 1.0
+gravity = Vector3(-6, -20, 0)
+initial_velocity_min = 27.5
+initial_velocity_max = 27.5
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -720.0
+angle_max = 720.0
+scale_curve = SubResource("CurveTexture_qelpc")
+color_ramp = SubResource("GradientTexture1D_k373t")
+turbulence_enabled = true
+turbulence_noise_strength = 10.02
+turbulence_noise_scale = 0.35
+
+[node name="Building" instance=ExtResource("1_tnnqm")]
+has_door = true
+shape = PackedVector2Array(-13, -30, 35, -30, 35, 3, -13, 3)
+collision_shape = PackedVector2Array(-13, 3, -4, 3, -4, -19, 3, -19, 3, 3, 35, 3, 35, -30, -13, -30)
+
+[node name="Shadow" parent="." index="0"]
+polygon = PackedVector2Array(-17, -34, 39, -34, 39, 7, -17, 7)
+
+[node name="Door" parent="." index="1"]
+modulate = Color(1, 1, 1, 255)
+
+[node name="Polygon2D" parent="." index="2"]
+visible = false
+polygon = PackedVector2Array(-13, -30, 35, -30, 35, 3, -13, 3)
+
+[node name="CollisionPolygon2D" parent="." index="3"]
+visible = false
+z_index = 1
+polygon = PackedVector2Array(-13, 3, -4, 3, -4, -19, 3, -19, 3, 3, 35, 3, 35, -30, -13, -30)
+
+[node name="House2" type="Sprite2D" parent="." index="4"]
+position = Vector2(11, -28)
+texture = ExtResource("2_qy1gs")
+
+[node name="Polygon2D2" type="Polygon2D" parent="." index="5"]
+visible = false
+polygon = PackedVector2Array(-13, 3, -4, 3, -4, -19, 3, -19, 3, 3, 35, 3, 35, -30, -13, -30)
+
+[node name="PlayerVisibilityNode" type="Area2D" parent="." index="6"]
+script = ExtResource("3_cnhsq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerVisibilityNode" index="0"]
+visible = false
+polygon = PackedVector2Array(-13, -30, -13, -41, 3, -57, 6, -57, 14, -50, 37, -50, 35, -30)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="7"]
+position = Vector2(-3, -48)
+process_material = SubResource("ParticleProcessMaterial_ut1yg")
+texture = ExtResource("4_ud0sk")
+lifetime = 3.0

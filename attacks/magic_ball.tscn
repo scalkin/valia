@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://cl0vxjab6iu8j"]
+
+[ext_resource type="Script" path="res://attacks/magic_ball.gd" id="1_qdb3o"]
+[ext_resource type="Texture2D" uid="uid://dwirajtv4eqlj" path="res://attacks/magic_ball.png" id="2_avty6"]
+[ext_resource type="Script" path="res://effects/trail.gd" id="3_ctqps"]
+[ext_resource type="Texture2D" uid="uid://hnglw6xhicgx" path="res://effects/magic_line.png" id="3_m2vu4"]
+
+[sub_resource type="Curve" id="Curve_r2q8i"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.134615, 0.402135), 0.0, 0.0, 0, 0, Vector2(0.682692, 0.914591), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n5p4d"]
+radius = 9.0
+
+[sub_resource type="Gradient" id="Gradient_uo1fc"]
+colors = PackedColorArray(0.952941, 0.537255, 0.960784, 1, 0.576471, 0.219608, 0.560784, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5lib4"]
+gradient = SubResource("Gradient_uo1fc")
+
+[sub_resource type="Curve" id="Curve_ioxfy"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0941704, 1), -0.189515, -0.189515, 0, 0, Vector2(1, 0), -2.03872, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_pifr1"]
+curve = SubResource("Curve_ioxfy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ifqd"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 4.0
+emission_ring_inner_radius = 3.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -200.0
+radial_accel_max = -100.0
+scale_min = 0.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_pifr1")
+color_ramp = SubResource("GradientTexture1D_5lib4")
+turbulence_noise_strength = 20.0
+
+[node name="Magic Ball" type="Area2D"]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_qdb3o")
+
+[node name="MagicBall" type="Sprite2D" parent="."]
+texture = ExtResource("2_avty6")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, -3)
+
+[node name="Trail" type="Line2D" parent="Node2D"]
+position = Vector2(0, 8)
+width = 2.0
+width_curve = SubResource("Curve_r2q8i")
+texture = ExtResource("3_m2vu4")
+texture_mode = 2
+script = ExtResource("3_ctqps")
+frequency = 2
+random_offset = Vector2(0.1, 0.1)
+
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2(0, 3)
+
+[node name="Trail" type="Line2D" parent="Node2D2"]
+width = 2.0
+width_curve = SubResource("Curve_r2q8i")
+texture = ExtResource("3_m2vu4")
+texture_mode = 2
+script = ExtResource("3_ctqps")
+frequency = 2
+random_offset = Vector2(0.3, 0.3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_n5p4d")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_8ifqd")
+lifetime = 0.25

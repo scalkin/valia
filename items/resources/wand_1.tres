@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://b7rbl1jbxl06j"]
+
+[ext_resource type="Texture2D" uid="uid://bay0wn1qcghy7" path="res://ui/assets/spark.png" id="1_d0nbv"]
+[ext_resource type="Texture2D" uid="uid://cuugtbrrpxqx4" path="res://items/assets/wand_1_icon.png" id="2_7sv03"]
+[ext_resource type="Script" path="res://editor/item.gd" id="3_ru76d"]
+[ext_resource type="Texture2D" uid="uid://h3gb21ipaqds" path="res://ui/assets/fireball.png" id="4_levc8"]
+[ext_resource type="Texture2D" uid="uid://dgkeosc5l2w4l" path="res://ui/assets/wand_dash.png" id="5_dhjma"]
+[ext_resource type="Texture2D" uid="uid://21f0m7gsh40w" path="res://items/assets/wand_1.png" id="6_uf0d2"]
+
+[resource]
+script = ExtResource("3_ru76d")
+id = 4
+name = "Wand of Sparks"
+type = 0
+texture = ExtResource("6_uf0d2")
+icon = ExtResource("2_7sv03")
+offset = Vector2(-11, -1)
+blade_base = 0
+blade_center = 0
+blade_tip = -1
+basic_damage = 1
+secondary_damage = 3
+tertiary_damage = 3
+basic_cooldown = 0.5
+secondary_cooldown = 2.0
+tertiary_cooldown = 3.0
+dash_speed = 3.0
+super_dash_speed = 6.0
+swish_thickness = 0
+basic_animation = "wand_spark"
+directional_basic = false
+automatic_basic = true
+secondary_animation = "wand_fireball"
+directional_secondary = false
+dash_on_secondary = false
+tertiary_animation = "dash"
+directional_tertiary = false
+basic_icon = ExtResource("1_d0nbv")
+secondary_icon = ExtResource("4_levc8")
+tertiary_icon = ExtResource("5_dhjma")
+hand_texture = 0
+equip_function = Callable()
