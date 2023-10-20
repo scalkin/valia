@@ -1,6 +1,5 @@
 @tool
 extends StaticBody2D
-class_name Building
 
 @export var has_door = true
 @export var shape:PackedVector2Array
@@ -10,6 +9,13 @@ class_name Building
 		if Engine.is_editor_hint():
 			reload = false
 			_ready()
+@export var texture_id = 0:
+	set(value):
+		if get_node_or_null("multitexturesprite") != null:
+			get_node("multitexturesprite").texture_id = value
+			texture_id = get_node("multitexturesprite").texture_id
+		else:
+			texture_id = 0
 
 @onready var collision_polygon = $CollisionPolygon2D
 @onready var editor_display_polygon = $Polygon2D

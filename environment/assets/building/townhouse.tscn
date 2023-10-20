@@ -1,26 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbkpri84dxpq0"]
+[gd_scene load_steps=5 format=3 uid="uid://bbkpri84dxpq0"]
 
 [ext_resource type="PackedScene" uid="uid://dm35fegombo70" path="res://environment/assets/building/building.tscn" id="1_ts8ek"]
 [ext_resource type="Texture2D" uid="uid://cxi5f5q2xs6at" path="res://environment/assets/building/town_house.png" id="2_gaq21"]
 [ext_resource type="Script" path="res://effects/player_visibility_node.gd" id="3_3mqm3"]
+[ext_resource type="PackedScene" uid="uid://cc5jfxpud0hqg" path="res://addons/multitexturesprite.tscn" id="4_ttol0"]
 
 [node name="Townhouse" instance=ExtResource("1_ts8ek")]
 has_door = true
+shape = PackedVector2Array(-14, 3, 31, 3, 31, -39, -14, -39)
+collision_shape = PackedVector2Array(-14, 3, -4, 3, -4, -20, 3, -20, 3, 3, 31, 3, 31, -39, -14, -39)
+reload = false
+
+[node name="Shadow" parent="." index="0"]
+polygon = PackedVector2Array(-18, 7, 35, 7, 35, -43, -18, -43)
 
 [node name="Door" parent="." index="1"]
 modulate = Color(1, 1, 1, 255)
 
 [node name="Polygon2D" parent="." index="2"]
 visible = false
+polygon = PackedVector2Array(-14, 3, 31, 3, 31, -39, -14, -39)
+
+[node name="CollisionPolygon2D" parent="." index="3"]
+polygon = PackedVector2Array(-14, 3, -4, 3, -4, -20, 3, -20, 3, 3, 31, 3, 31, -39, -14, -39)
 
 [node name="TownHouse" type="Sprite2D" parent="." index="4"]
+visible = false
 position = Vector2(-23, -115)
 texture = ExtResource("2_gaq21")
 centered = false
 
 [node name="Polygon2D2" type="Polygon2D" parent="." index="5"]
 visible = false
-polygon = PackedVector2Array(-14, 3, -4, 3, -4, -20, 3, -20, 3, 3, 31, 3, 31, -39, -14, -39)
+polygon = PackedVector2Array(-14, 3, 31, 3, 31, -39, -14, -39)
 
 [node name="PlayerVisibilityNode" type="Area2D" parent="." index="6"]
 script = ExtResource("3_3mqm3")
@@ -28,3 +40,9 @@ script = ExtResource("3_3mqm3")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerVisibilityNode" index="0"]
 visible = false
 polygon = PackedVector2Array(-16, -38, 34, -38, 34, -81, 9, -106, -16, -82)
+
+[node name="multitexturesprite" parent="." index="7" instance=ExtResource("4_ttol0")]
+position = Vector2(-23, -115)
+texture = ExtResource("2_gaq21")
+centered = false
+textures = PackedStringArray("res://environment/assets/building/town_house.png", "res://environment/assets/building/town_house_2.png", "res://environment/assets/building/town_house_3.png", "res://environment/assets/building/town_house_4.png")

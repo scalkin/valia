@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://lqpsq3gukxjt"]
+
+[ext_resource type="Script" path="res://environment/assets/objects/object.gd" id="1_dw5bf"]
+
+[node name="object" type="StaticBody2D"]
+modulate = Color(1, 1, 1, 0.8)
+script = ExtResource("1_dw5bf")

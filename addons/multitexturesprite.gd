@@ -1,9 +1,9 @@
 @tool
 extends Sprite2D
 
-class_name MultitextureSprite
+class_name MultiTextureSprite
 
-@export var textures: Texture2DArray
+@export var textures: PackedStringArray
 @export var texture_id: int:
 	set(value):
 		if value + 1 > textures.size():
@@ -11,4 +11,9 @@ class_name MultitextureSprite
 		if value < 0:
 			value = textures.size() - 1
 		if textures.size() != 0:
-			texture = textures[str(value)]
+			texture = load(textures[value])
+		texture_id = value
+
+func _ready():
+	centered = false
+

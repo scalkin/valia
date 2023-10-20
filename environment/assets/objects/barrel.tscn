@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://fwgg7bmc84gr"]
+
+[ext_resource type="PackedScene" uid="uid://lqpsq3gukxjt" path="res://environment/assets/objects/object.tscn" id="1_2606q"]
+[ext_resource type="PackedScene" uid="uid://cc5jfxpud0hqg" path="res://addons/multitexturesprite.tscn" id="2_rpajo"]
+[ext_resource type="Texture2D" uid="uid://bkgfyv3sl8fc" path="res://environment/assets/objects/barrel_2.png" id="3_pc6l6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cggir"]
+radius = 4.0
+
+[node name="barrel" instance=ExtResource("1_2606q")]
+
+[node name="multitexturesprite" parent="." index="0" instance=ExtResource("2_rpajo")]
+position = Vector2(-5, -9)
+texture = ExtResource("3_pc6l6")
+centered = false
+textures = PackedStringArray("res://environment/assets/objects/barrel_2.png", "res://environment/assets/objects/barrel_2_side.png", "res://environment/assets/objects/barrel_2_side_2.png", "res://environment/assets/objects/barrel_2_side_3.png")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_cggir")
