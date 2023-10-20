@@ -1,9 +1,30 @@
-[gd_scene load_steps=12 format=3 uid="uid://cl0vxjab6iu8j"]
+[gd_scene load_steps=16 format=3 uid="uid://cl0vxjab6iu8j"]
 
 [ext_resource type="Script" path="res://attacks/magic_ball.gd" id="1_qdb3o"]
 [ext_resource type="Texture2D" uid="uid://dwirajtv4eqlj" path="res://attacks/magic_ball.png" id="2_avty6"]
 [ext_resource type="Script" path="res://effects/trail.gd" id="3_ctqps"]
 [ext_resource type="Texture2D" uid="uid://hnglw6xhicgx" path="res://effects/magic_line.png" id="3_m2vu4"]
+[ext_resource type="Texture2D" uid="uid://f020prqsgy82" path="res://effects/particle.png" id="5_07nm5"]
+
+[sub_resource type="Curve" id="Curve_m4n2x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0mjx5"]
+curve = SubResource("Curve_m4n2x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6k388"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -720.0
+angle_max = 720.0
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_0mjx5")
+color = Color(0.952941, 0.537255, 0.960784, 1)
 
 [sub_resource type="Curve" id="Curve_r2q8i"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.134615, 0.402135), 0.0, 0.0, 0, 0, Vector2(0.682692, 0.914591), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -55,6 +76,10 @@ texture = ExtResource("2_avty6")
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, -3)
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Node2D"]
+process_material = SubResource("ParticleProcessMaterial_6k388")
+texture = ExtResource("5_07nm5")
+
 [node name="Trail" type="Line2D" parent="Node2D"]
 position = Vector2(0, 8)
 width = 2.0
@@ -67,6 +92,10 @@ random_offset = Vector2(0.1, 0.1)
 
 [node name="Node2D2" type="Node2D" parent="."]
 position = Vector2(0, 3)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Node2D2"]
+process_material = SubResource("ParticleProcessMaterial_6k388")
+texture = ExtResource("5_07nm5")
 
 [node name="Trail" type="Line2D" parent="Node2D2"]
 width = 2.0
