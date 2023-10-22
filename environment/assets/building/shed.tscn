@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3pn42f2ktt7l"]
+
+[ext_resource type="PackedScene" uid="uid://dm35fegombo70" path="res://environment/assets/building/building.tscn" id="1_v52kq"]
+[ext_resource type="Texture2D" uid="uid://caqh15mm88cs" path="res://environment/assets/building/shed.png" id="2_bknqq"]
+
+[node name="Building" instance=ExtResource("1_v52kq")]
+has_door = true
+shape = PackedVector2Array(13, 3, -14, 3, -14, -30, 13, -30)
+collision_shape = PackedVector2Array(13, 3, 3, 3, 3, -12, -4, -12, -4, 3, -14, 3, -14, -30, 13, -30)
+
+[node name="Shadow" parent="." index="0"]
+polygon = PackedVector2Array(17, 7, -18, 7, -18, -34, 17, -34)
+
+[node name="Door" parent="." index="1"]
+modulate = Color(1, 1, 1, 255)
+
+[node name="Polygon2D" parent="." index="2"]
+visible = false
+polygon = PackedVector2Array(13, 3, -14, 3, -14, -30, 13, -30)
+
+[node name="CollisionPolygon2D" parent="." index="3"]
+visible = false
+polygon = PackedVector2Array(13, 3, 3, 3, 3, -12, -4, -12, -4, 3, -14, 3, -14, -30, 13, -30)
+
+[node name="Shed" type="Sprite2D" parent="." index="4"]
+position = Vector2(-16, -53)
+texture = ExtResource("2_bknqq")
+centered = false
+
+[node name="Polygon2D2" type="Polygon2D" parent="." index="5"]
+visible = false
+polygon = PackedVector2Array(13, 3, 3, 3, 3, -12, -4, -12, -4, 3, -14, 3, -14, -30, 13, -30)

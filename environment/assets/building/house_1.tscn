@@ -8,7 +8,6 @@
 has_door = true
 shape = PackedVector2Array(21, 3, -13, 3, -13, -35, 21, -35)
 collision_shape = PackedVector2Array(21, 3, 3, 3, 3, -20, -4, -20, -4, 3, -13, 3, -13, -35, 21, -35)
-reload = false
 
 [node name="Shadow" parent="." index="0"]
 polygon = PackedVector2Array(25, 7, -17, 7, -17, -39, 25, -39)

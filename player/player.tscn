@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://jujg78m2plwq"]
+[gd_scene load_steps=52 format=3 uid="uid://jujg78m2plwq"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_cshaw"]
 [ext_resource type="Texture2D" uid="uid://06gnqvtg570g" path="res://characters/character_1.png" id="2_du1n0"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b5tqfixcajuia" path="res://effects/shadows/shadow.tscn" id="8_c1ku2"]
 [ext_resource type="Script" path="res://player/dash_hurtbox.gd" id="8_u3fdo"]
 [ext_resource type="Texture2D" uid="uid://iothlxthsmcl" path="res://effects/dash_lines.png" id="9_r6taq"]
+[ext_resource type="Script" path="res://player/Camera2D.gd" id="10_h03i4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t1e7l"]
 radius = 1.0
@@ -797,6 +798,10 @@ _data = {
 "walk_up": SubResource("Animation_jsm02")
 }
 
+[sub_resource type="Curve" id="Curve_3imf5"]
+_data = [Vector2(0, 0.103203), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_2q4s4"]
 radius = 4.0
 
@@ -1008,7 +1013,10 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 position_smoothing_enabled = true
+script = ExtResource("10_h03i4")
+zoom_curve = SubResource("Curve_3imf5")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1

@@ -12,7 +12,6 @@ radius = 4.0
 [node name="multitexturesprite" parent="." index="0" instance=ExtResource("2_rpajo")]
 position = Vector2(-5, -9)
 texture = ExtResource("3_pc6l6")
-centered = false
 textures = PackedStringArray("res://environment/assets/objects/barrel_2.png", "res://environment/assets/objects/barrel_2_side.png", "res://environment/assets/objects/barrel_2_side_2.png", "res://environment/assets/objects/barrel_2_side_3.png")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]

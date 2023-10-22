@@ -30,6 +30,7 @@ shader = ExtResource("2_esroo")
 shader_parameter/open_amount = 0.54
 
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 layer = 2
 script = ExtResource("1_12kt7")
 

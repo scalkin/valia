@@ -9,7 +9,6 @@
 has_door = true
 shape = PackedVector2Array(-14, 3, 31, 3, 31, -39, -14, -39)
 collision_shape = PackedVector2Array(-14, 3, -4, 3, -4, -20, 3, -20, 3, 3, 31, 3, 31, -39, -14, -39)
-reload = false
 
 [node name="Shadow" parent="." index="0"]
 polygon = PackedVector2Array(-18, 7, 35, 7, 35, -43, -18, -43)
@@ -44,5 +43,4 @@ polygon = PackedVector2Array(-16, -38, 34, -38, 34, -81, 9, -106, -16, -82)
 [node name="multitexturesprite" parent="." index="7" instance=ExtResource("4_ttol0")]
 position = Vector2(-23, -115)
 texture = ExtResource("2_gaq21")
-centered = false
 textures = PackedStringArray("res://environment/assets/building/town_house.png", "res://environment/assets/building/town_house_2.png", "res://environment/assets/building/town_house_3.png", "res://environment/assets/building/town_house_4.png")
