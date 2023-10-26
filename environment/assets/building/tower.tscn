@@ -8,7 +8,8 @@
 
 [node name="Building" instance=ExtResource("1_naf33")]
 script = ExtResource("2_qcb4f")
-window = true
+window = Object(Polygon2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"color":Color(0.054902, 0.027451, 0.105882, 0.392157),"offset":Vector2(0, 0),"antialiased":false,"texture":null,"texture_offset":Vector2(0, 0),"texture_scale":Vector2(1, 1),"texture_rotation":0.0,"skeleton":NodePath(""),"invert_enabled":false,"invert_border":100.0,"polygon":PackedVector2Array(19, 4, 19, -34, -20, -34, -20, 4),"uv":PackedVector2Array(),"vertex_colors":PackedColorArray(),"polygons":[],"bones":[],"internal_vertex_count":0,"script":null)
+
 has_door = true
 shape = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
 collision_shape = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
@@ -23,6 +24,7 @@ polygon = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
 polygon = PackedVector2Array(15, 0, 15, -30, -16, -30, -16, 0)
 
 [node name="Tower2" type="Sprite2D" parent="." index="4"]
+modulate = Color(1, 1, 1, 0.8)
 position = Vector2(0, -48)
 texture = ExtResource("3_73ept")
 

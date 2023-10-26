@@ -5,4 +5,5 @@ extends "res://environment/assets/building/building.gd"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	$"TowerWindow".visible = window
+	pass
+	#$"TowerWindow".visible = window

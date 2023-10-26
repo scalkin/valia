@@ -16,6 +16,7 @@ extends StaticBody2D
 			texture_id = get_node("multitexturesprite").texture_id
 		else:
 			texture_id = 0
+@export var hide_shadow = false
 
 @onready var collision_polygon = $CollisionPolygon2D
 @onready var editor_display_polygon = $Polygon2D
@@ -75,6 +76,8 @@ func _ready():
 	shadow.polygon = poly
 
 func _process(_delta):
+	$Shadow.visible = not hide_shadow
+	
 	if has_door:
 		$Door.modulate.a = 255
 	else:

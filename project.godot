@@ -14,7 +14,7 @@ config/name="Valia"
 run/main_scene="res://world/levels/llenidorf.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0.780392, 0.811765, 0.866667, 1)
-boot_splash/image="res://splash.png"
+boot_splash/image="res://icon_wide_scaled.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 

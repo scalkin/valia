@@ -11,6 +11,7 @@
 modulate = Color(1, 1, 1, 0.8)
 script = ExtResource("1_bxn86")
 has_door = null
+hide_shadow = null
 
 [node name="Shadow" type="Polygon2D" parent="."]
 material = SubResource("CanvasItemMaterial_0h6o3")
