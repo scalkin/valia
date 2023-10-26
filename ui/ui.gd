@@ -34,8 +34,6 @@ var fist_dash = preload("res://ui/assets/dash_fist.png")
 @onready var super_effect = $"Control/Action Bar/HBoxContainer/Action 3/Super"
 
 func _process(_delta):
-	visible = not get_tree().paused
-	
 	action_1_cooldown_bar.value = action_1_cooldown
 	action_2_cooldown_bar.value = action_2_cooldown
 	action_3_cooldown_bar.value = action_3_cooldown

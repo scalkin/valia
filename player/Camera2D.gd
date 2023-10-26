@@ -6,6 +6,8 @@ var zoom_0 = 1
 @export var zoom_curve: Curve
 
 func _process(delta):
+	UI.visible = not camera_mode
+	
 	if Input.is_action_just_pressed("camera_mode_toggle"):
 		camera_mode = not camera_mode
 		get_tree().paused = camera_mode
