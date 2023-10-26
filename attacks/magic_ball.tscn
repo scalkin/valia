@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://cl0vxjab6iu8j"]
+[gd_scene load_steps=26 format=3 uid="uid://cl0vxjab6iu8j"]
 
 [ext_resource type="Script" path="res://attacks/magic_ball.gd" id="1_qdb3o"]
 [ext_resource type="Texture2D" uid="uid://dwirajtv4eqlj" path="res://attacks/magic_ball.png" id="2_avty6"]
 [ext_resource type="Script" path="res://effects/trail.gd" id="3_ctqps"]
 [ext_resource type="Texture2D" uid="uid://hnglw6xhicgx" path="res://effects/magic_line.png" id="3_m2vu4"]
 [ext_resource type="Texture2D" uid="uid://f020prqsgy82" path="res://effects/particle.png" id="5_07nm5"]
+[ext_resource type="Texture2D" uid="uid://cuvkqjdjk2jem" path="res://effects/explosion_5.png" id="6_ekab3"]
 
 [sub_resource type="Curve" id="Curve_m4n2x"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -65,12 +66,115 @@ scale_curve = SubResource("CurveTexture_pifr1")
 color_ramp = SubResource("GradientTexture1D_5lib4")
 turbulence_noise_strength = 20.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr3mn"]
+atlas = ExtResource("6_ekab3")
+region = Rect2(0, 18, 24, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7p02"]
+atlas = ExtResource("6_ekab3")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1f4e"]
+atlas = ExtResource("6_ekab3")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hsxs"]
+atlas = ExtResource("6_ekab3")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y41g"]
+atlas = ExtResource("6_ekab3")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bj2w8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr3mn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7p02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1f4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hsxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y41g")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="Animation" id="Animation_aj24i"]
+resource_name = "remove_trails"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Trail:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D2/Trail:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nycl7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Trail:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D2/Trail:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q0bta"]
+_data = {
+"RESET": SubResource("Animation_nycl7"),
+"remove_trails": SubResource("Animation_aj24i")
+}
+
 [node name="Magic Ball" type="Area2D"]
 collision_layer = 8
-collision_mask = 16
+collision_mask = 17
 script = ExtResource("1_qdb3o")
 
-[node name="MagicBall" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_avty6")
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -114,3 +218,19 @@ shape = SubResource("CircleShape2D_n5p4d")
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_8ifqd")
 lifetime = 0.25
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bj2w8")
+autoplay = "default"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q0bta")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -8,8 +8,10 @@ var knockback_strength = 0
 @export var length_2 = 30
 @export var empty_frame = 7
 @export var electricity_effect = true
+@export var gradient: GradientTexture1D
 
 func _ready():
+	$GPUParticles2D.process_material.color_ramp = gradient
 	$AnimatedSprite2D.frame = empty_frame
 	$GPUParticles2D.rotation = atan2(velocity.y, velocity.x)
 	for x in range(1, length_1):
@@ -44,30 +46,25 @@ func _process(delta):
 
 
 func _on_timer_timeout():
-	velocity = Vector2.ZERO
-	$GPUParticles2D.emitting = false
-	$AnimatedSprite2D.frame = 0
-	$AnimatedSprite2D.play("default")
-	$CollisionShape2D.set_deferred("disabled", true)
+	finish()
 
 
 func _on_area_entered(area):
 	global_position = (area.global_position + global_position)/2
-	
+	finish()
+
+func _on_body_entered(body):
+	finish()
+
+func finish():
 	velocity = Vector2.ZERO
 	$GPUParticles2D.emitting = false
 	$AnimatedSprite2D.frame = 0
 	$AnimatedSprite2D.play("default")
 	$CollisionShape2D.set_deferred("disabled", true)
 
-
 func _on_animated_sprite_2d_animation_finished():
 	queue_free()
-
-
-func _on_body_entered(_body):
-	_on_area_entered(self)
-
 
 func _on_area_2d_body_entered(_body):
 	_on_area_entered(self)

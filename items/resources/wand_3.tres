@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://din4kytql28w6"]
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://din4kytql28w6"]
 
 [ext_resource type="Texture2D" uid="uid://dejnpuxg8h3ib" path="res://items/assets/wand_3.png" id="1_0lcsg"]
+[ext_resource type="Texture2D" uid="uid://qmfrx80d2ck1" path="res://ui/assets/wand_3_basic.png" id="1_bnurs"]
+[ext_resource type="Texture2D" uid="uid://t3clgiy1m2q4" path="res://items/assets/wand_3_icon.png" id="2_1ak5w"]
 [ext_resource type="Script" path="res://editor/item.gd" id="2_utdxh"]
+[ext_resource type="Texture2D" uid="uid://caqq2hf6dfsqk" path="res://ui/assets/magic_ball.png" id="4_imru1"]
+[ext_resource type="Texture2D" uid="uid://ddh3e3ucywx56" path="res://ui/assets/wand_3_dash.png" id="5_kb10w"]
 
 [resource]
 script = ExtResource("2_utdxh")
@@ -9,8 +13,8 @@ id = 6
 name = "Wand 3"
 type = 0
 texture = ExtResource("1_0lcsg")
-icon = ExtResource("1_0lcsg")
-offset = Vector2(-11, 0)
+icon = ExtResource("2_1ak5w")
+offset = Vector2(-4, 0)
 blade_base = 15
 blade_center = 5
 blade_tip = 0
@@ -23,7 +27,7 @@ tertiary_cooldown = 2.0
 dash_speed = 4.0
 super_dash_speed = 6.0
 swish_thickness = 0
-basic_animation = "wand_spark"
+basic_animation = "wand_magic_spark"
 directional_basic = false
 automatic_basic = true
 secondary_animation = "wand_magic_ball"
@@ -31,8 +35,8 @@ directional_secondary = false
 dash_on_secondary = false
 tertiary_animation = "dash"
 directional_tertiary = false
-basic_icon = ExtResource("1_0lcsg")
-secondary_icon = ExtResource("1_0lcsg")
-tertiary_icon = ExtResource("1_0lcsg")
+basic_icon = ExtResource("1_bnurs")
+secondary_icon = ExtResource("4_imru1")
+tertiary_icon = ExtResource("5_kb10w")
 hand_texture = 0
 equip_function = Callable()

@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://dmn3hic7qpid6"]
+
+[ext_resource type="PackedScene" uid="uid://jmyuax7lki5q" path="res://attacks/spark.tscn" id="1_lpggy"]
+[ext_resource type="Texture2D" uid="uid://b56x62yt4tpmd" path="res://effects/explosion_6.png" id="2_hxstn"]
+
+[sub_resource type="Gradient" id="Gradient_f2g0d"]
+offsets = PackedFloat32Array(0.0985916, 0.158451, 0.316901, 0.408451, 0.573944, 0.753521)
+colors = PackedColorArray(0.992157, 0.823529, 0.929412, 1, 0.952941, 0.537255, 0.960784, 1, 0.952941, 0.537255, 0.960784, 1, 0.858824, 0.247059, 0.992157, 1, 0.858824, 0.247059, 0.992157, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1mopb"]
+gradient = SubResource("Gradient_f2g0d")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c5bg"]
+atlas = ExtResource("2_hxstn")
+region = Rect2(0, 0, 11, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glxuy"]
+atlas = ExtResource("2_hxstn")
+region = Rect2(11, 0, 11, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbaiu"]
+atlas = ExtResource("2_hxstn")
+region = Rect2(22, 0, 11, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1bbny"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c5bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glxuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbaiu")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="spark" instance=ExtResource("1_lpggy")]
+empty_frame = 0
+gradient = SubResource("GradientTexture1D_1mopb")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_1bbny")

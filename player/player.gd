@@ -40,6 +40,7 @@ var magic_ball = preload("res://attacks/magic_ball.tscn")
 var lightning_bolt = preload("res://attacks/lightning_bolt.tscn")
 var wand_lightning_explosion = preload("res://effects/lightning_explosion.tscn")
 var spark = preload("res://attacks/spark.tscn")
+var magic_spark = preload("res://attacks/magic_spark.tscn")
 var electric_spark = preload("res://attacks/electric_spark.tscn")
 var wand_fire_explosion = preload("res://effects/fire_explosion.tscn")
 
@@ -429,6 +430,16 @@ func camera_shake():
 
 func spawn_spark():
 	var spark_instance = spark.instantiate()
+	spark_instance.global_position = blade_tip.global_position
+	spark_instance.damage = Global.items[Global.equipped_item].basic_damage
+	spark_instance.velocity = Vector2(
+		cos(direction_to_mouse_from_shoulder),
+		sin(direction_to_mouse_from_shoulder),
+	)
+	add_sibling(spark_instance)
+
+func spawn_magic_spark():
+	var spark_instance = magic_spark.instantiate()
 	spark_instance.global_position = blade_tip.global_position
 	spark_instance.damage = Global.items[Global.equipped_item].basic_damage
 	spark_instance.velocity = Vector2(
