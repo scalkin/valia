@@ -22,7 +22,6 @@ config/icon="res://icon.png"
 
 Global="*res://global.tscn"
 UI="*res://ui/ui.tscn"
-Items="*res://items/items.gd"
 
 [display]
 
@@ -134,6 +133,7 @@ camera_reset={
 2d_physics/layer_5="enemy_hitbox"
 2d_physics/layer_6="enemy_hurtbox"
 2d_physics/layer_7="enemy"
+2d_physics/layer_8="dark"
 
 [rendering]
 

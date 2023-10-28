@@ -1,12 +1,12 @@
-[gd_scene load_steps=53 format=3 uid="uid://jujg78m2plwq"]
+[gd_scene load_steps=55 format=3 uid="uid://jujg78m2plwq"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_cshaw"]
 [ext_resource type="Texture2D" uid="uid://06gnqvtg570g" path="res://characters/character_1.png" id="2_du1n0"]
 [ext_resource type="Texture2D" uid="uid://jcgxjida4pxe" path="res://characters/character_1_head.png" id="3_85swf"]
 [ext_resource type="Texture2D" uid="uid://boqyxlsfxhk52" path="res://characters/hand.png" id="3_p262c"]
 [ext_resource type="Script" path="res://player/hand.gd" id="4_fsken"]
-[ext_resource type="Texture2D" uid="uid://dejnpuxg8h3ib" path="res://items/assets/wand_3.png" id="7_21n3r"]
 [ext_resource type="Texture2D" uid="uid://cy01b00231nqo" path="res://ui/pointer.png" id="7_q2flt"]
+[ext_resource type="Texture2D" uid="uid://3m0qsi528hsp" path="res://items/assets/health_wand.png" id="7_xf13f"]
 [ext_resource type="PackedScene" uid="uid://b5tqfixcajuia" path="res://effects/shadows/shadow.tscn" id="8_c1ku2"]
 [ext_resource type="Script" path="res://player/dash_hurtbox.gd" id="8_u3fdo"]
 [ext_resource type="Texture2D" uid="uid://iothlxthsmcl" path="res://effects/dash_lines.png" id="9_r6taq"]
@@ -689,6 +689,65 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_px6be"]
+resource_name = "wand_heart"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shoulder/Hand/Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-11, -1), Vector2(-8, -1), Vector2(-11, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shoulder/Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_heart"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"wand_explosion"
+}, {
+"args": [],
+"method": &"basic_finished"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oumc0"]
 _data = {
 "RESET": SubResource("Animation_2r03f"),
@@ -700,6 +759,7 @@ _data = {
 "sword_up": SubResource("Animation_vek1s"),
 "wand_electric_spark": SubResource("Animation_1k1jy"),
 "wand_fireball": SubResource("Animation_rr7e3"),
+"wand_heart": SubResource("Animation_px6be"),
 "wand_lightning_bolt": SubResource("Animation_a27qg"),
 "wand_magic_ball": SubResource("Animation_s5d61"),
 "wand_magic_spark": SubResource("Animation_iju48"),
@@ -982,6 +1042,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_gnhcu"]
 radius = 55.9017
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hfwgh"]
+radius = 3.16228
+
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
 collision_layer = 2
@@ -1023,12 +1086,12 @@ script = ExtResource("4_fsken")
 
 [node name="Sword" type="Sprite2D" parent="Shoulder/Hand"]
 position = Vector2(-10, -1)
-texture = ExtResource("7_21n3r")
+texture = ExtResource("7_xf13f")
 centered = false
 flip_h = true
 
 [node name="Base" type="Node2D" parent="Shoulder/Hand/Sword"]
-position = Vector2(15, 2)
+position = Vector2(12, 2)
 
 [node name="Center" type="Node2D" parent="Shoulder/Hand/Sword"]
 position = Vector2(5, 5)
@@ -1128,11 +1191,18 @@ libraries = {
 }
 
 [node name="Sight" type="Area2D" parent="."]
-collision_layer = 128
+collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sight"]
 shape = SubResource("CircleShape2D_gnhcu")
+
+[node name="Dark Magic" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dark Magic"]
+shape = SubResource("CircleShape2D_hfwgh")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Tertiary Attack Cooldown" to="." method="_on_tertiary_attack_cooldown_timeout"]

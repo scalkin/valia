@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpevor2glgwru"]
+
+[ext_resource type="Texture2D" uid="uid://drskicfg65jfh" path="res://ui/ui_sheet.png" id="1_kp4t0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dgibu"]
+texture = ExtResource("1_kp4t0")
+region_rect = Rect2(25, 1, 3, 4)
+
+[node name="Status Bar" type="NinePatchRect"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -9.0
+offset_right = 62.0
+offset_bottom = -3.0
+grow_vertical = 0
+texture = ExtResource("1_kp4t0")
+region_rect = Rect2(19, 0, 6, 6)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxTexture_dgibu")
+value = 100.0
+show_percentage = false

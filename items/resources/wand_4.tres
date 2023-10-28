@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://juvwd7f16pqp"]
+
+[ext_resource type="Script" path="res://editor/item.gd" id="1_4babt"]
+[ext_resource type="Texture2D" uid="uid://3m0qsi528hsp" path="res://items/assets/health_wand.png" id="1_dp0g3"]
+
+[resource]
+script = ExtResource("1_4babt")
+id = 0
+name = ""
+type = 0
+texture = ExtResource("1_dp0g3")
+icon = ExtResource("1_dp0g3")
+offset = Vector2(-8, -1)
+blade_base = 12
+blade_center = 5
+blade_tip = 0
+basic_damage = 0
+secondary_damage = 0
+tertiary_damage = 0
+basic_cooldown = 3.0
+secondary_cooldown = 3.0
+tertiary_cooldown = 2.0
+dash_speed = 4.0
+super_dash_speed = 0.0
+swish_thickness = 0
+basic_animation = "wand_heart"
+directional_basic = false
+automatic_basic = false
+basic_energy = 10.0
+dark_basic = false
+secondary_animation = "wand_heart"
+directional_secondary = false
+dash_on_secondary = true
+secondary_energy = 0.0
+dark_secondary = true
+tertiary_animation = "dash"
+directional_tertiary = false
+tertiary_energy = 5.0
+dark_tertiary = false
+basic_icon = ExtResource("1_dp0g3")
+secondary_icon = ExtResource("1_dp0g3")
+tertiary_icon = ExtResource("1_dp0g3")
+hand_texture = 0
+equip_function = Callable()

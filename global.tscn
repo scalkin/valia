@@ -10,4 +10,7 @@ script = ExtResource("1_b88rw")
 wait_time = 0.05
 one_shot = true
 
+[node name="Energy Recovery Cooldown" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Freeze" to="." method="_on_freeze_timeout"]

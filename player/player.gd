@@ -32,6 +32,12 @@ var not_attack_dash_active = false
 var dash_speed = 3
 var super_dash_speed = 6
 var swish_thickness = 10
+var basic_energy = 0
+var secondary_energy = 0
+var tertiary_energy = 0
+var dark_basic = false
+var dark_secondary = false
+var dark_tertiary = false
 
 var sword_hurtbox = preload("res://items/sword_hurtbox.tscn")
 var sword_swish = preload("res://items/swish.tscn")
@@ -43,6 +49,8 @@ var spark = preload("res://attacks/spark.tscn")
 var magic_spark = preload("res://attacks/magic_spark.tscn")
 var electric_spark = preload("res://attacks/electric_spark.tscn")
 var wand_fire_explosion = preload("res://effects/fire_explosion.tscn")
+var lifeless_patch = preload("res://effects/lifeless_patch.tscn")
+var heart = preload("res://items/heart.tscn")
 
 @export var shoulder_rotation_augment:float = 1
 
@@ -152,10 +160,12 @@ func _physics_process(delta):
 	shoulder.show_behind_parent = hand.global_position.y+5 < global_position.y
 	
 	
-	if (Input.is_action_just_pressed("action_1") or (Input.is_action_pressed("action_1") and Global.items[Global.equipped_item].automatic_basic)) and attack_cooldown.is_stopped():
+	if (Input.is_action_just_pressed("action_1") or (Input.is_action_pressed("action_1") and Global.items[Global.equipped_item].automatic_basic)) and attack_cooldown.is_stopped() and Global.player_energy > basic_energy:
+		Global.player_energy -= basic_energy
 		use_item()
 	
-	if Input.is_action_just_pressed("action_2") and secondary_attack_cooldown.is_stopped():
+	if Input.is_action_just_pressed("action_2") and secondary_attack_cooldown.is_stopped() and Global.player_energy > secondary_energy:
+		Global.player_energy -= secondary_energy
 		use_item_secondary()
 	
 	if Input.is_action_just_pressed("action_3"):
@@ -164,7 +174,8 @@ func _physics_process(delta):
 		#print($"Super Dash Timer".time_left)
 		#print(tertiary_attack_cooldown.time_left)
 		#print(dash_speed/5)
-	if Input.is_action_just_pressed("action_3") and (tertiary_attack_cooldown.is_stopped() or $"Super Dash Timer".time_left != 0.0):
+	if Input.is_action_just_pressed("action_3") and (tertiary_attack_cooldown.is_stopped() or $"Super Dash Timer".time_left != 0.0) and Global.player_energy > tertiary_energy:
+		Global.player_energy -= tertiary_energy
 		use_item_tertiary()
 		dash_timer.start()
 	
@@ -190,6 +201,9 @@ func update_held_item():
 		blade_tip.position.x = 15
 		dash_speed = 3
 		super_dash_speed = 4
+		basic_energy = 0
+		secondary_energy = 0
+		tertiary_energy = 0
 		match sword_direction:
 			0:
 				shoulder_rotation_augment = 1
@@ -210,6 +224,12 @@ func update_held_item():
 	blade_center.position.x = equipped_item_res.blade_center
 	blade_tip.position.x = equipped_item_res.blade_tip
 	dash_speed = equipped_item_res.dash_speed
+	basic_energy = equipped_item_res.basic_energy
+	secondary_energy = equipped_item_res.secondary_energy
+	tertiary_energy = equipped_item_res.tertiary_energy
+	dark_basic = equipped_item_res.dark_basic
+	dark_secondary = equipped_item_res.dark_secondary
+	dark_tertiary = equipped_item_res.dark_tertiary
 	if equipped_item_res.directional_basic:
 		match sword_direction:
 			0:
@@ -222,6 +242,14 @@ func update_held_item():
 func use_item():
 	if item_state == IN_USE or item_animations.is_playing():
 		return
+	
+	if dark_basic:
+		if $"Dark Magic".get_overlapping_areas().size() != 0:
+			#print($"Dark Magic".get_overlapping_areas())
+			basic_finished()
+			return
+		spawn_lifeless_patch()
+	
 	item_state = IN_USE
 	attack_cooldown.start(action_1_cooldown)
 	if Global.equipped_item == -1:
@@ -261,6 +289,13 @@ func tertiary_finished():
 func use_item_secondary():
 	if item_state == IN_USE or item_animations.is_playing():
 		return
+	
+	if dark_secondary:
+		if $"Dark Magic".get_overlapping_areas().size() != 0:
+			secondary_finsihed()
+			return
+		spawn_lifeless_patch()
+	
 	item_state = IN_USE
 	secondary_attack_cooldown.start(action_2_cooldown)
 	if Global.equipped_item == -1:
@@ -306,6 +341,12 @@ func use_item_tertiary():
 	if item_state == IN_USE or item_animations.is_playing():
 		return
 	item_state = IN_USE
+	
+	if dark_tertiary:
+		if $"Dark Magic".get_overlapping_areas().size() != 0:
+			tertiary_finished()
+			return
+		spawn_lifeless_patch()
 	
 	#if hand is empty, don't bother with any logic
 	if Global.equipped_item == -1:
@@ -428,55 +469,46 @@ func camera_shake():
 		1:
 			$"Camera Shake".play("camera shake")
 
-func spawn_spark():
-	var spark_instance = spark.instantiate()
+func spawn_lifeless_patch():
+	var instance = lifeless_patch.instantiate()
+	instance.global_position = global_position
+	add_sibling(instance)
+
+func spawn(resource, damage, speed):
+	var spark_instance = resource.instantiate()
 	spark_instance.global_position = blade_tip.global_position
 	spark_instance.damage = Global.items[Global.equipped_item].basic_damage
 	spark_instance.velocity = Vector2(
 		cos(direction_to_mouse_from_shoulder),
 		sin(direction_to_mouse_from_shoulder),
-	)
+	)*speed
 	add_sibling(spark_instance)
+
+func spawn_spark():
+	spawn(spark, Global.items[Global.equipped_item].basic_damage, 1)
 
 func spawn_magic_spark():
-	var spark_instance = magic_spark.instantiate()
-	spark_instance.global_position = blade_tip.global_position
-	spark_instance.damage = Global.items[Global.equipped_item].basic_damage
-	spark_instance.velocity = Vector2(
-		cos(direction_to_mouse_from_shoulder),
-		sin(direction_to_mouse_from_shoulder),
-	)
-	add_sibling(spark_instance)
+	spawn(magic_spark, Global.items[Global.equipped_item].basic_damage, 1)
 	
 func spawn_electric_spark():
-	var spark_instance = electric_spark.instantiate()
-	spark_instance.global_position = blade_tip.global_position
-	spark_instance.damage = Global.items[Global.equipped_item].basic_damage
-	spark_instance.velocity = Vector2(
-		cos(direction_to_mouse_from_shoulder),
-		sin(direction_to_mouse_from_shoulder),
-	)
-	add_sibling(spark_instance)
+	spawn(electric_spark, Global.items[Global.equipped_item].basic_damage, 1.25)
 
 func spawn_fireball():
-	var fireball_instance = fireball.instantiate()
-	fireball_instance.global_position = blade_tip.global_position
-	fireball_instance.damage = Global.items[Global.equipped_item].secondary_damage
-	fireball_instance.velocity = Vector2(
-		cos(shoulder.rotation),
-		sin(shoulder.rotation),
-	)
-	add_sibling(fireball_instance)
-	
+	spawn(fireball, Global.items[Global.equipped_item].secondary_damage, 1.5)
+
+func spawn_heart():
+	spawn(heart, 0, 0)
+
 func spawn_magic_ball():
-	var magic_ball_instance = magic_ball.instantiate()
-	magic_ball_instance.global_position = blade_tip.global_position
-	magic_ball_instance.damage = Global.items[Global.equipped_item].secondary_damage
-	magic_ball_instance.velocity = Vector2(
-		cos(shoulder.rotation),
-		sin(shoulder.rotation),
-	)*1.5
-	add_sibling(magic_ball_instance)
+	spawn(magic_ball, Global.items[Global.equipped_item].secondary_damage, 1.5)
+	#var magic_ball_instance = magic_ball.instantiate()
+	#magic_ball_instance.global_position = blade_tip.global_position
+	#magic_ball_instance.damage = Global.items[Global.equipped_item].secondary_damage
+	#magic_ball_instance.velocity = Vector2(
+	#	cos(shoulder.rotation),
+	#	sin(shoulder.rotation),
+	#)*1.5
+	#add_sibling(magic_ball_instance)
 
 func spawn_lightning_bolt():
 	var lightning_explosion_instance = wand_lightning_explosion.instantiate()
@@ -494,7 +526,6 @@ func wand_explosion():
 	fire_explosion_instance.global_position = blade_tip.global_position
 	fire_explosion_instance.rotation = shoulder.rotation
 	add_sibling(fire_explosion_instance)
-
 
 
 func _on_tertiary_attack_cooldown_timeout():

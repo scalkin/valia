@@ -17,22 +17,33 @@
 [ext_resource type="Texture2D" uid="uid://0ogod4vk77aq" path="res://ui/assets/armor_slot.png" id="13_dp3fg"]
 [ext_resource type="Texture2D" uid="uid://2pix7s51fqhn" path="res://ui/assets/boots_slot.png" id="14_weqd7"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgw72"]
+shader = ExtResource("2_esroo")
+shader_parameter/tint = Color(0.537255, 0.117647, 0.168627, 1)
+shader_parameter/open_amount = 0.1
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bqd4x"]
 shader = ExtResource("2_esroo")
-shader_parameter/open_amount = 0.0
+shader_parameter/tint = null
+shader_parameter/open_amount = 0.4
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dgibu"]
 texture = ExtResource("9_47ikb")
 region_rect = Rect2(25, 1, 3, 4)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgw72"]
-shader = ExtResource("2_esroo")
-shader_parameter/open_amount = 0.54
-
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
 layer = 2
 script = ExtResource("1_12kt7")
+
+[node name="Vignette" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_xgw72")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="."]
 material = SubResource("ShaderMaterial_bqd4x")
@@ -470,15 +481,38 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_dgibu")
 value = 100.0
 show_percentage = false
 
-[node name="Vignette" type="ColorRect" parent="Control"]
-material = SubResource("ShaderMaterial_xgw72")
+[node name="NinePatchRect2" type="NinePatchRect" parent="Control/Status Bar"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -17.0
+offset_right = 62.0
+offset_bottom = -11.0
+grow_vertical = 0
+texture = ExtResource("9_47ikb")
+region_rect = Rect2(19, 0, 6, 6)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/Status Bar/NinePatchRect2"]
+modulate = Color(0, 5, 5, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxTexture_dgibu")
+value = 100.0
+show_percentage = false
 
 [node name="Item" type="Sprite2D" parent="."]
 

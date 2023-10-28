@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var player = null
+var damage = 0
 
 func _ready():
 	pass

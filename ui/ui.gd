@@ -31,9 +31,10 @@ var fist_dash = preload("res://ui/assets/dash_fist.png")
 @onready var menu = $Control/Menu
 @onready var console = $Control/Console
 @onready var health_bar = $"Control/Status Bar/NinePatchRect/ProgressBar"
+@onready var energy_bar = $"Control/Status Bar/NinePatchRect2/ProgressBar"
 @onready var super_effect = $"Control/Action Bar/HBoxContainer/Action 3/Super"
 
-func _process(_delta):
+func _process(delta):
 	action_1_cooldown_bar.value = action_1_cooldown
 	action_2_cooldown_bar.value = action_2_cooldown
 	action_3_cooldown_bar.value = action_3_cooldown
@@ -64,7 +65,7 @@ func _process(_delta):
 	
 	if not Global.mouse_held_item == -1:
 		item.global_position = item.get_global_mouse_position()
-		item.visible = true
+		item.visible = menu.visible
 		item.texture = Global.items[Global.mouse_held_item].icon
 	else:
 		item.visible = false
@@ -72,6 +73,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("menu"):
 		menu.visible = not menu.visible
 		console.visible = false
+		get_tree().paused = menu.visible
 	
 	if Input.is_action_just_pressed("console"):
 		menu.visible = false
@@ -81,6 +83,25 @@ func _process(_delta):
 	health_bar.max_value = Global.player_max_health
 	health_bar.value = Global.player_health
 	
+	energy_bar.max_value = Global.player_max_energy
+	energy_bar.value = Global.player_energy
+	
+	var health_percentage:float = float(Global.player_health)/float(Global.player_max_health)  
+	
+	var vignette_target_open_amount = Tween.interpolate_value(0.35, 0.19, health_percentage, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	var vignette_open_amount = $Vignette.material.get("shader_parameter/open_amount")
+	
+	if vignette_open_amount > vignette_target_open_amount:
+		vignette_open_amount -= delta/2
+		if vignette_open_amount < vignette_target_open_amount:
+			vignette_open_amount = vignette_target_open_amount
+	else:
+		vignette_open_amount += delta/2
+		if vignette_open_amount > vignette_target_open_amount:
+			vignette_open_amount = vignette_target_open_amount
+	
+	$Vignette.material.set("shader_parameter/open_amount", vignette_open_amount)
+	$Vignette.material.set("shader_parameter/tint", Tween.interpolate_value(Vector4(0.0, 0.0, 0.0, 1.0), Vector4(0.54, 0.12, 0.17, 0.0), 1.2-health_percentage, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN))
 	
 	#$Vignette.scale = DisplayServer.window_get_size(0)/5
 

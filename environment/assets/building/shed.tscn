@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3pn42f2ktt7l"]
+[gd_scene load_steps=4 format=3 uid="uid://d3pn42f2ktt7l"]
 
 [ext_resource type="PackedScene" uid="uid://dm35fegombo70" path="res://environment/assets/building/building.tscn" id="1_v52kq"]
 [ext_resource type="Texture2D" uid="uid://caqh15mm88cs" path="res://environment/assets/building/shed.png" id="2_bknqq"]
+[ext_resource type="Script" path="res://effects/player_visibility_node.gd" id="3_4oceo"]
 
 [node name="Building" instance=ExtResource("1_v52kq")]
 has_door = true
 shape = PackedVector2Array(13, 3, -14, 3, -14, -30, 13, -30)
 collision_shape = PackedVector2Array(13, 3, 3, 3, 3, -12, -4, -12, -4, 3, -14, 3, -14, -30, 13, -30)
-hide_shadow = null
 
 [node name="Shadow" parent="." index="0"]
 polygon = PackedVector2Array(17, 7, -18, 7, -18, -34, 17, -34)
@@ -31,3 +31,9 @@ centered = false
 [node name="Polygon2D2" type="Polygon2D" parent="." index="5"]
 visible = false
 polygon = PackedVector2Array(13, 3, 3, 3, 3, -12, -4, -12, -4, 3, -14, 3, -14, -30, 13, -30)
+
+[node name="PlayerVisibilityNode" type="Area2D" parent="." index="6"]
+script = ExtResource("3_4oceo")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerVisibilityNode" index="0"]
+polygon = PackedVector2Array(-14, -34, 13, -34, 13, -39, 0, -52, -14, -39)

@@ -38,3 +38,6 @@ shape = SubResource("CapsuleShape2D_fsw56")
 [node name="CollisionShape2D" parent="Hitbox" index="1"]
 position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_wwm85")
+
+[node name="NavigationAgent2D" parent="." index="5"]
+debug_enabled = false

@@ -26,11 +26,17 @@ enum item_type {SWORD, ARMOR, BOOTS}
 @export var basic_animation:String
 @export var directional_basic = true
 @export var automatic_basic = false
+@export var basic_energy = 0.0
+@export var dark_basic = false
 @export var secondary_animation:String
 @export var directional_secondary = true
 @export var dash_on_secondary = true
+@export var secondary_energy = 0.0
+@export var dark_secondary = false
 @export var tertiary_animation:String
 @export var directional_tertiary = false
+@export var tertiary_energy = 0.0
+@export var dark_tertiary = false
 @export var basic_icon:Texture
 @export var secondary_icon:Texture
 @export var tertiary_icon:Texture

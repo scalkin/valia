@@ -17,9 +17,21 @@ var player_health = 15:
 			player_health = 0
 			respawn()
 var player_max_health = 15
+var player_energy = 15:
+	set(value):
+		if value < player_energy:
+			energy_recovery_cooldown_timer.start(energy_recovery_cooldown)
+		player_energy = value
+		if player_energy > player_max_energy:
+			player_energy = player_max_energy
+		elif player_energy <= 0:
+			player_energy = 0
+var player_max_energy = 15
+var energy_recovery_cooldown = 1.0
+var energy_recovery_rate = 1.0
 var inventory = [
 	-1, -1, -1, -1,
-	-1, -1, -1, 6,
+	-1, -1, 7, 6,
 	-1, -1, 5, 4,
 	0, 1, 2, 3,
 	-1, -1, -1]
@@ -33,6 +45,7 @@ var items = [
 	load("res://items/resources/wand_1.tres"),
 	load("res://items/resources/wand_2.tres"),
 	load("res://items/resources/wand_3.tres"),
+	load("res://items/resources/wand_4.tres"),
 ]
 
 var dash_unlocked = true
@@ -42,6 +55,8 @@ var super_dash_time = 0.5
 signal inventory_updated
 signal equipped_item_changed
 signal camera_shake
+
+@onready var energy_recovery_cooldown_timer = $"Energy Recovery Cooldown"
 
 func _ready():
 	UI.call_deferred("load_inventory")
@@ -87,12 +102,14 @@ func respawn():
 	get_tree().reload_current_scene()
 	randomize()
 	player_health = player_max_health
+	player_energy = player_max_energy
 
 func save_data():
 	return {
 		"mouse_held_item" : mouse_held_item,
 		"player_health" : player_health,
 		"player_max_health" : player_health,
+		"player_energy" : player_max_energy,
 		"inventory" : inventory,
 		"equipped_item" : equipped_item,
 		"dash_unlocked" : dash_unlocked,
@@ -101,7 +118,7 @@ func save_data():
 func save_game():
 	var save = save_data()
 	var json_save = JSON.stringify(save, " ", false, true)
-	var save_file = FileAccess.open("user://randomboringrpgthatnobodyplays/savedata", FileAccess.WRITE)
+	var save_file = FileAccess.open("user://rpg.json", FileAccess.WRITE)
 	print(save_file)
 	save_file.store_string(json_save)
 	save_file.close()
@@ -109,3 +126,8 @@ func save_game():
 #just for readability
 func vector_average(vector_1, vector_2):
 	return (vector_1+vector_2)/2.0
+
+func _process(delta):
+	#print(energy_recovery_cooldown_timer.time_left)
+	if energy_recovery_cooldown_timer.is_stopped() and player_energy < player_max_energy:
+		player_energy += energy_recovery_rate*delta
